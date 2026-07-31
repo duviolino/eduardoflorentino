@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="kmCW7M7_0COWBDlQfz_wvpMvCd4drX1jQXZF1qH_4ZM" />
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="description" content="Eduardo Florentino, violinista de Belém do Pará, estudante na Escola de Música da UFPA. Disponível para shows, casamentos, formaturas e eventos corporativos.">
+<meta property="og:title" content="Eduardo Florentino | Violinista">
+<meta property="og:description" content="Violinista de Belém do Pará, estudante na Escola de Música da UFPA. Disponível para shows e eventos.">
+<meta property="og:type" content="website">
+<title>Eduardo Florentino | Violinista</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Marcellus&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #14110f;
+    --bg-deep: #0b0908;
+    --wood: #8a5a34;
+    --gold: #c9a15a;
+    --ivory: #ece5d8;
+    --ivory-dim: #b8ae9d;
+    --line: rgba(201,161,90,0.25);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--ivory);
+    font-family:'Jost', sans-serif;
+    font-weight:300;
+    overflow-x:hidden;
+  }
+
+  ::selection{ background:var(--gold); color:var(--bg-deep); }
+
+  a{color:inherit; text-decoration:none;}
+
+  .display{ font-family:'Marcellus', serif; }
+  .serif{ font-family:'Cormorant Garamond', serif; }
+
+  /* Focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:4px;
+  }
+
+  /* ===== Nav ===== */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:1.6rem clamp(1.5rem,5vw,4rem);
+    background:linear-gradient(to bottom, rgba(11,9,8,0.85), transparent);
+  }
+  .logo{
+    font-family:'Marcellus', serif;
+    font-size:1.05rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+  }
+  .logo span{ color:var(--gold); }
+  nav ul{ display:flex; gap:clamp(1.2rem,3vw,2.5rem); list-style:none; }
+  nav a{
+    font-size:0.78rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--ivory-dim);
+    transition:color 0.3s ease;
+    position:relative;
+  }
+  nav a::after{
+    content:''; position:absolute; left:0; bottom:-6px;
+    width:0; height:1px; background:var(--gold);
+    transition:width 0.35s ease;
+  }
+  nav a:hover{ color:var(--ivory); }
+  nav a:hover::after{ width:100%; }
+  .nav-toggle{ display:none; }
+
+  /* ===== Hero ===== */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:0 clamp(1.5rem,7vw,6rem);
+    background:
+      radial-gradient(ellipse 60% 50% at 75% 20%, rgba(201,161,90,0.10), transparent 70%),
+      linear-gradient(180deg, var(--bg-deep) 0%, var(--bg) 60%);
+    overflow:hidden;
+  }
+
+  /* signature element: animated bowed string / waveform */
+  .waveform{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height:38vh;
+    opacity:0.55;
+    pointer-events:none;
+  }
+  .waveform svg{ width:100%; height:100%; }
+  .wf-path{
+    fill:none;
+    stroke:var(--gold);
+    stroke-width:1;
+    stroke-opacity:0.5;
+  }
+  .wf-path.dim{ stroke-opacity:0.22; stroke:var(--wood); }
+
+  .hero-eyebrow{
+    font-size:0.8rem;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:1.6rem;
+    opacity:0;
+    animation:fadeUp 1s ease 0.2s forwards;
+  }
+  .hero h1{
+    font-family:'Marcellus', serif;
+    font-size:clamp(2.8rem, 8vw, 6.2rem);
+    line-height:1.02;
+    max-width:14ch;
+    opacity:0;
+    animation:fadeUp 1.1s ease 0.4s forwards;
+  }
+  .hero-sub{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:clamp(1.15rem, 2vw, 1.5rem);
+    color:var(--ivory-dim);
+    max-width:38ch;
+    margin-top:1.8rem;
+    opacity:0;
+    animation:fadeUp 1.1s ease 0.6s forwards;
+  }
+  .hero-cta{
+    margin-top:2.8rem;
+    display:flex; gap:1.2rem; flex-wrap:wrap;
+    opacity:0;
+    animation:fadeUp 1.1s ease 0.8s forwards;
+  }
+  .btn{
+    display:inline-block;
+    padding:0.9rem 2rem;
+    font-size:0.78rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    border:1px solid var(--gold);
+    transition:all 0.35s ease;
+  }
+  .btn.solid{ background:var(--gold); color:var(--bg-deep); }
+  .btn.solid:hover{ background:transparent; color:var(--gold); }
+  .btn.ghost{ color:var(--ivory); border-color:var(--line); }
+  .btn.ghost:hover{ border-color:var(--gold); color:var(--gold); }
+
+  @keyframes fadeUp{
+    from{ opacity:0; transform:translateY(18px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .scroll-hint{
+    position:absolute; bottom:2.4rem; left:clamp(1.5rem,7vw,6rem);
+    font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase;
+    color:var(--ivory-dim);
+    display:flex; align-items:center; gap:0.7rem;
+  }
+  .scroll-hint::before{
+    content:''; width:28px; height:1px; background:var(--gold);
+  }
+
+  /* ===== Sections common ===== */
+  section{ padding:8rem clamp(1.5rem,7vw,6rem); position:relative; }
+  .section-head{ margin-bottom:3.5rem; max-width:60ch; }
+  .eyebrow{
+    display:block;
+    font-size:0.76rem; letter-spacing:0.3em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:1rem;
+  }
+  h2{
+    font-family:'Marcellus', serif;
+    font-size:clamp(2rem, 4vw, 3rem);
+  }
+  .lede{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.3rem; color:var(--ivory-dim);
+    margin-top:1.1rem;
+  }
+
+  /* ===== Sobre ===== */
+  #sobre{ background:var(--bg-deep); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .sobre-grid{
+    display:grid; grid-template-columns: 0.9fr 1.4fr; gap:clamp(2rem,6vw,5rem);
+    align-items:start;
+  }
+  .sobre-portrait{
+    aspect-ratio: 4/5;
+    border:1px solid var(--line);
+    background:
+      linear-gradient(160deg, rgba(201,161,90,0.08), transparent 60%),
+      var(--bg);
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .sobre-portrait span{
+    font-family:'Cormorant Garamond', serif; font-style:italic;
+    color:var(--ivory-dim); font-size:1rem; text-align:center; padding:2rem;
+  }
+  .sobre-text p{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.2rem; line-height:1.75; color:var(--ivory-dim);
+    margin-bottom:1.4rem;
+  }
+  .sobre-facts{
+    display:grid; grid-template-columns:repeat(2,1fr);
+    gap:1.6rem; margin-top:2.4rem;
+    border-top:1px solid var(--line); padding-top:2rem;
+  }
+  .fact-num{ font-family:'Marcellus', serif; font-size:1.9rem; color:var(--gold); }
+  .fact-label{ font-size:0.78rem; letter-spacing:0.08em; color:var(--ivory-dim); margin-top:0.3rem; }
+
+  /* ===== Vídeos/Áudios ===== */
+  .media-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:1.6rem;
+  }
+  .media-card{
+    border:1px solid var(--line);
+    aspect-ratio:16/10;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:0.9rem;
+    background:linear-gradient(160deg, rgba(201,161,90,0.05), transparent 70%);
+    transition:border-color 0.3s ease, transform 0.3s ease;
+  }
+  .media-card:hover{ border-color:var(--gold); transform:translateY(-4px); }
+  .play-ring{
+    width:52px; height:52px; border-radius:50%;
+    border:1px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--gold); font-size:1.1rem;
+  }
+  .media-card p{ font-size:0.82rem; color:var(--ivory-dim); letter-spacing:0.04em; text-align:center; padding:0 1rem; }
+
+  /* ===== Fotos ===== */
+  .photo-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:180px;
+    gap:0.6rem;
+  }
+  .photo-grid div{
+    border:1px solid var(--line);
+    background:linear-gradient(155deg, rgba(201,161,90,0.06), transparent 65%);
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.72rem; letter-spacing:0.1em; color:var(--ivory-dim); text-transform:uppercase;
+    overflow:hidden;
+  }
+  .photo-grid div:nth-child(1){ grid-column:span 2; grid-row:span 2; }
+  .photo-grid div:nth-child(4){ grid-column:span 2; }
+
+  /* ===== Contato ===== */
+  #contato{ background:var(--bg-deep); border-top:1px solid var(--line); }
+  .contato-grid{
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:clamp(2rem,6vw,5rem);
+  }
+  .contato-list{ margin-top:2.2rem; display:flex; flex-direction:column; gap:1.4rem; }
+  .contato-item{
+    display:flex; align-items:baseline; gap:1rem;
+    padding-bottom:1.2rem; border-bottom:1px solid var(--line);
+  }
+  .contato-item .k{ font-size:0.75rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); width:8rem; flex-shrink:0; }
+  .contato-item a{ font-family:'Cormorant Garamond', serif; font-size:1.3rem; color:var(--ivory); border-bottom:1px solid transparent; transition:border-color 0.3s ease; }
+  .contato-item a:hover{ border-color:var(--gold); }
+
+  .contato-note{
+    border:1px solid var(--line); padding:2.4rem;
+    display:flex; flex-direction:column; justify-content:center;
+    background:linear-gradient(160deg, rgba(201,161,90,0.05), transparent 70%);
+  }
+  .contato-note p{ font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.15rem; color:var(--ivory-dim); line-height:1.7; }
+
+  footer{
+    padding:2.6rem clamp(1.5rem,7vw,6rem);
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;
+    font-size:0.72rem; letter-spacing:0.08em; color:var(--ivory-dim);
+    border-top:1px solid var(--line);
+  }
+
+  @media (max-width:760px){
+    nav ul{ display:none; }
+    .sobre-grid, .contato-grid{ grid-template-columns:1fr; }
+    .photo-grid{ grid-template-columns:repeat(2,1fr); }
+    .photo-grid div:nth-child(1){ grid-column:span 2; grid-row:span 1; }
+    section{ padding:5.5rem 1.4rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Eduardo <span>Florentino</span></div>
+  <nav>
+    <ul>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#videos">Vídeos</a></li>
+      <li><a href="#fotos">Fotos</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero" id="topo">
+  <div class="waveform" aria-hidden="true">
+    <svg viewBox="0 0 1200 300" preserveAspectRatio="none">
+      <path class="wf-path dim" d="M0,180 C100,120 200,240 300,170 C400,100 500,220 600,160 C700,110 800,230 900,175 C1000,120 1100,210 1200,170" />
+      <path class="wf-path" d="M0,210 C120,160 220,260 320,200 C420,140 520,250 620,190 C720,130 820,240 920,195 C1020,150 1120,220 1200,200" />
+    </svg>
+  </div>
+
+  <span class="hero-eyebrow">Violinista &middot; Belém do Pará</span>
+  <h1 class="display">Eduardo<br>Florentino</h1>
+  <p class="hero-sub serif">Violino desde os cinco anos de idade — estudante na Escola de Música da UFPA, disponível para shows e eventos.</p>
+  <div class="hero-cta">
+    <a href="#contato" class="btn solid">Contratar / Falar comigo</a>
+    <a href="#videos" class="btn ghost">Ouvir e assistir</a>
+  </div>
+
+  <div class="scroll-hint">Role para conhecer</div>
+</section>
+
+<section id="sobre">
+  <div class="sobre-grid">
+    <div class="sobre-portrait">
+      <img src="images/retrato-1.jpg" alt="Eduardo Florentino segurando seu violino" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+    <div>
+      <div class="section-head" style="margin-bottom:1.8rem;">
+        <span class="eyebrow">Sobre mim</span>
+        <h2>Uma vida inteira com o violino</h2>
+      </div>
+      <div class="sobre-text">
+        <p>Comecei a tocar violino aos cinco anos de idade e, desde então, o instrumento faz parte da minha rotina e da minha identidade. Nascido em Belém, no Pará, sou estudante de violino na Escola de Música da Universidade Federal do Pará (UFPA), onde venho desenvolvendo minha técnica e repertório.</p>
+        <p>Hoje coloco essa experiência a serviço de quem procura música de qualidade para shows, eventos e cerimônias.</p>
+      </div>
+      <div class="sobre-facts">
+        <div>
+          <div class="fact-num">12+</div>
+          <div class="fact-label">Anos de violino</div>
+        </div>
+        <div>
+          <div class="fact-num">17</div>
+          <div class="fact-label">Anos de idade</div>
+        </div>
+        <div>
+          <div class="fact-num">UFPA</div>
+          <div class="fact-label">Estudante de violino</div>
+        </div>
+        <div>
+          <div class="fact-num">Belém</div>
+          <div class="fact-label">Naturalidade</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="videos">
+  <div class="section-head">
+    <span class="eyebrow">Vídeos &amp; Áudios</span>
+    <h2>Um pouco do que eu toco</h2>
+    <p class="lede">Registros de recitais e apresentações que marcaram minha trajetória com o violino.</p>
+  </div>
+  <div style="margin-bottom:2.5rem;">
+    <div class="media-card" style="padding:0; overflow:hidden; aspect-ratio:auto;">
+      <div style="position:relative; width:100%; padding-top:56.25%;">
+        <iframe
+          src="https://www.youtube.com/embed/V3dvsIARBtQ"
+          title="Recital com o professor Alexandre Contente"
+          style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+      </div>
+    </div>
+    <p style="font-family:'Cormorant Garamond', serif; font-style:italic; color:var(--ivory-dim); margin-top:0.9rem; font-size:1.05rem;">
+      Komarowski – Concerto em Lá Maior. Recital apresentado com o professor Alexandre Contente — 21 de junho de 2024.
+      <a href="https://youtu.be/V3dvsIARBtQ" target="_blank" rel="noopener" style="color:var(--gold); font-style:normal;">Assistir no YouTube ↗</a>
+    </p>
+  </div>
+  <div class="media-grid">
+    <div class="media-card"><div class="play-ring">▶</div><p>[ apresentação ao vivo ]</p></div>
+    <div class="media-card"><div class="play-ring">▶</div><p>[ trecho de estúdio ]</p></div>
+  </div>
+</section>
+
+<section id="fotos">
+  <div class="section-head">
+    <span class="eyebrow">Fotos</span>
+    <h2>Registros em cena</h2>
+    <p class="lede">Alguns registros de ensaios ao ar livre. Novas fotos de shows e bastidores serão adicionadas em breve.</p>
+  </div>
+  <div class="photo-grid">
+    <div><img src="images/cena-1.jpg" alt="Eduardo caminhando com o violino, de costas, em praça pública" style="width:100%;height:100%;object-fit:cover;"></div>
+    <div><img src="images/retrato-2.jpg" alt="Retrato de Eduardo segurando o violino" style="width:100%;height:100%;object-fit:cover;"></div>
+    <div><img src="images/violino-detalhe.jpg" alt="Detalhe do violino de Eduardo" style="width:100%;height:100%;object-fit:cover;"></div>
+    <div><img src="images/cena-2.jpg" alt="Eduardo de costas em frente a prédios, segurando o violino" style="width:100%;height:100%;object-fit:cover;"></div>
+    <div><img src="images/cena-3.jpg" alt="Eduardo segurando o arco do violino" style="width:100%;height:100%;object-fit:cover;"></div>
+  </div>
+</section>
+
+<section id="contato">
+  <div class="contato-grid">
+    <div>
+      <div class="section-head" style="margin-bottom:0;">
+        <span class="eyebrow">Contato</span>
+        <h2>Vamos conversar sobre seu evento</h2>
+      </div>
+      <div class="contato-list">
+        <div class="contato-item">
+          <span class="k">E-mail</span>
+          <a href="#" id="email-link" data-u="duduflorentinofilho12" data-d="gmail.com">mostrar e-mail</a>
+        </div>
+        <div class="contato-item">
+          <span class="k">Instagram</span>
+          <a href="https://instagram.com/duviolino" target="_blank" rel="noopener">@duviolino</a>
+        </div>
+        <div class="contato-item">
+          <span class="k">Base</span>
+          <span style="font-family:'Cormorant Garamond', serif; font-size:1.3rem;">Belém, Pará</span>
+        </div>
+      </div>
+    </div>
+    <div class="contato-note">
+      <p>"Disponível para casamentos, formaturas e eventos corporativos. Entre em contato para verificar disponibilidade e valores."</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>&copy; 2026 Eduardo Florentino — Violinista</span>
+  <span>Belém, Pará</span>
+</footer>
+
+<script>
+  // Monta o endereço de e-mail apenas no clique, dificultando a coleta automática por robôs de spam.
+  const emailLink = document.getElementById('email-link');
+  if (emailLink){
+    emailLink.addEventListener('click', function(e){
+      e.preventDefault();
+      const address = emailLink.dataset.u + '@' + emailLink.dataset.d;
+      emailLink.textContent = address;
+      emailLink.href = 'mailto:' + address;
+    }, { once:true });
+  }
+</script>
+
+</body>
+</html>
